@@ -1,0 +1,17 @@
+version: '3.9'
+
+services:
+  voronoi-lab:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: voronoi-lab
+    ports:
+      - '3000:80'
+    restart: unless-stopped
+    healthcheck:
+      test: ['CMD', 'wget', '-q', '-O', '/dev/null', 'http://localhost:80/']
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 15s
